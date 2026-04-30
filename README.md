@@ -35,7 +35,7 @@ Toàn bộ bài làm được chia thành 5 phần chính theo thứ tự tăng 
 - Trigger Xử Lý Nghiệp Vụ — định nghĩa các trigger tự động kích hoạt khi dữ liệu thay đổi (chẳng hạn, tự động cập nhật trạng thái phòng khi có đặt phòng mới, hoặc ghi log thay đổi).
 - Dùng Cursor và Xử Lý Dữ Liệu — sử dụng cursor để duyệt từng bản ghi và thực hiện các xử lý tuần tự, đồng thời so sánh hiệu năng giữa phương pháp cursor và phương pháp set-based, từ đó rút ra kết luận về tối ưu hóa.
 
-Trong quá trình thực hiện, sẽ thiết kế cơ sở dữ liệu với tên chuẩn: QuanLyKhachSan_K235480106022. Mỗi phần lệnh SQL viết ra sẽ đi kèm một ảnh screenshot chứa mã lệnh và kết quả thực thi, với các chú thích chi tiết: ảnh dùng để minh họa bước nào, câu lệnh giải quyết vấn đề gì, kết quả thể hiện thông tin gì. Thông qua bài tập này sẽ nắm vững các khái niệm cơ bản và nâng cao của SQL Server, từ DDL (Data Definition Language) đến DML (Data Manipulation Language), từ những truy vấn đơn giản đến những xử lý phức tạp bằng Function, Procedure, Trigger, và Cursor, từ đó tích lũy kỹ năng thiết kế và quản trị cơ sở dữ liệu chuyên nghiệp.
+Trong quá trình thực hiện, sẽ thiết kế cơ sở dữ liệu với tên chuẩn: QuanLyKhachSan_K235480106016. Mỗi phần lệnh SQL viết ra sẽ đi kèm một ảnh screenshot chứa mã lệnh và kết quả thực thi, với các chú thích chi tiết: ảnh dùng để minh họa bước nào, câu lệnh giải quyết vấn đề gì, kết quả thể hiện thông tin gì. Thông qua bài tập này sẽ nắm vững các khái niệm cơ bản và nâng cao của SQL Server, từ DDL (Data Definition Language) đến DML (Data Manipulation Language), từ những truy vấn đơn giản đến những xử lý phức tạp bằng Function, Procedure, Trigger, và Cursor, từ đó tích lũy kỹ năng thiết kế và quản trị cơ sở dữ liệu chuyên nghiệp.
 
 ## Phần 1 : Thiết kế và Khởi tạo Cấu trúc Dữ liệu
 - Tên db : QuanlyKhachSan_K235480106016
@@ -187,19 +187,6 @@ Một vài System Function đặc sắc:
 - ` ISNULL (check_expression, replacement_value)` : Cực kỳ hữu dụng để xử lý dữ liệu rác/trống. Nếu trường dữ liệu bị NULL, nó sẽ ngay lập tức thay thế bằng một giá trị mặc định để tránh lỗi tính toán.
 - ` DATEDIFF(interval, start, end)` : "Xương sống" của các bài toán quản lý thời gian, giúp tính chính xác khoảng cách giữa hai thời điểm (ngày, giờ, phút).
 - ` FORMAT()`: Hàm này rất "nghệ thuật" vì nó cho phép định dạng tiền tệ hoặc ngày tháng theo chuẩn từng quốc gia (ví dụ: định dạng tiền VNĐ).
-
-**SQL khai thác:**
-
-```sql
-SELECT 
-    [HoTenKhach], 
-    ISNULL([DiemDanhGia], 0) AS [DiemSo], 
-    FORMAT([GiaThueTheoNgay], 'C', 'vi-VN') AS [GiaTienVND] 
-FROM [PhieuDatPhong] p JOIN [Phong] r ON p.[MaPhong] = r.[MaPhong] JOIN [LoaiPhong] l ON r.[MaLoaiPhong] = l.[MaLoaiPhong];
-```
-
-kết quả
-<img width="1920" height="1080" alt="Screenshot (76)" src="https://github.com/user-attachments/assets/e8288ab0-f422-4390-ba99-479da0d95db2" />
 
 **2. User-Defined Functions (Hàm do người dùng tự viết)**
 **Tại sao cần tự viết hàm khi đã có System Function?**
